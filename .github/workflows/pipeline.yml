@@ -1,4 +1,4 @@
-name: CI - Test, Build and Push Docker Image
+name: Pipeline v1
 
 on:
   push:
