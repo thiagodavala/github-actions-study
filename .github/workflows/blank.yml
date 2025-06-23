@@ -69,8 +69,6 @@ jobs:
 
       - name: Run Gitleaks to detect secrets
         uses: gitleaks/gitleaks-action@v2
-        with:
-          fail: true  # Faz o job falhar se encontrar secrets
 
   Build:
     runs-on: ubuntu-latest
