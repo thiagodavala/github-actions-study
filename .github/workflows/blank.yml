@@ -43,15 +43,15 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t $IMAGE_NAME:${{ github.sha }} .
+        run: docker build -t ${{env.IMAGE_NAME }}:${{ github.sha }} .
 
       - name: Push Docker image
-        run: docker push $IMAGE_NAME:${{ github.sha }}
+        run: docker push ${{env.IMAGE_NAME }}:${{ github.sha }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          image-ref: 'thiagoogeremias86/hello-api:${{ github.sha }}'
+          image-ref: '${{env.IMAGE_NAME }}:${{ github.sha }}'
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
