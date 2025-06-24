@@ -70,9 +70,21 @@ jobs:
       - name: Run Gitleaks to detect secrets
         uses: gitleaks/gitleaks-action@v2
 
+  Checkov:
+    runs-on: ubuntu-latest
+    needs: Test
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Run Checkov scan on iac/terraform
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: 'iac/terraform'
+
   Build:
     runs-on: ubuntu-latest
-    needs: [Semgrep,Pip-Audit,Gitleaks]
+    needs: [Semgrep,Pip-Audit,Gitleaks,Checkov]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
